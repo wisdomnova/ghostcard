@@ -149,21 +149,25 @@ export default function GhostCard3D({ scrollProgress }: GhostCard3DProps) {
     let baseRotationZ = -0.1;
 
     if (scrollProgress <= 1.0) {
-      // PHASE 1: Section 1 -> Section 2 (Hero -> Section 2)
+      // PHASE 1: Hero (Right) -> Section 2 (Left)
+      // Adds a 180-degree flip on Y with a dynamic Z spin during transition
       const t = scrollProgress; // 0 to 1
       const initialScale = 0.95 * mobileScaleMult;
       const targetScale = 1.35 * mobileScaleMult;
       scale = THREE.MathUtils.lerp(initialScale, targetScale, t);
 
-      // On mobile, shift card up vertically so text displays beneath cleanly
       targetX = THREE.MathUtils.lerp(responsiveXMult, -responsiveXMult, t);
       targetY = isMobile ? THREE.MathUtils.lerp(0.8, -0.6, t) : 0;
 
-      baseRotationX = THREE.MathUtils.lerp(0.3, 0.15, t);
-      baseRotationY = THREE.MathUtils.lerp(-0.4, -0.15, t);
-      baseRotationZ = THREE.MathUtils.lerp(-0.1, 0, t);
+      // Spin spike during transition center (sin wave rotation pulse)
+      const spinPulse = Math.sin(t * Math.PI) * 0.8;
+
+      baseRotationX = THREE.MathUtils.lerp(0.3, 0.15, t) + spinPulse * 0.2;
+      baseRotationY = THREE.MathUtils.lerp(-0.4, -0.15 + Math.PI, t); // Flip to reveal back/profile details
+      baseRotationZ = THREE.MathUtils.lerp(-0.1, 0.25, t) + spinPulse * 0.35;
     } else if (scrollProgress <= 2.0) {
-      // PHASE 2: Section 2 -> Section 3 (Section 2 -> Section 3)
+      // PHASE 2: Section 2 (Left) -> Section 3 (Right)
+      // Sweeping 360-degree reverse spin with dynamic pitch tilt
       const t = scrollProgress - 1.0; // 0 to 1
       const initialScale = 1.35 * mobileScaleMult;
       const targetScale = 1.5 * mobileScaleMult;
@@ -172,11 +176,14 @@ export default function GhostCard3D({ scrollProgress }: GhostCard3DProps) {
       targetX = THREE.MathUtils.lerp(-responsiveXMult, responsiveXMult, t);
       targetY = isMobile ? THREE.MathUtils.lerp(-0.6, 0.6, t) : THREE.MathUtils.lerp(0, -0.2, t);
 
-      baseRotationX = THREE.MathUtils.lerp(0.15, 0.45, t);
-      baseRotationY = THREE.MathUtils.lerp(-0.15, -0.75, t);
-      baseRotationZ = THREE.MathUtils.lerp(0, 0.2, t);
+      const tiltPulse = Math.sin(t * Math.PI) * 0.6;
+
+      baseRotationX = THREE.MathUtils.lerp(0.15, 0.55, t) + tiltPulse * 0.3;
+      baseRotationY = THREE.MathUtils.lerp(-0.15 + Math.PI, -0.75, t); // Unflips back to front face
+      baseRotationZ = THREE.MathUtils.lerp(0.25, -0.3, t);
     } else if (scrollProgress <= 3.0) {
-      // PHASE 3: Section 3 -> Section 4 (Section 3 -> Section 4)
+      // PHASE 3: Section 3 (Right) -> Section 4 (Left)
+      // Sleek isometric tilt skew with coin-spin momentum
       const t = scrollProgress - 2.0; // 0 to 1
       const initialScale = 1.5 * mobileScaleMult;
       const targetScale = 1.3 * mobileScaleMult;
@@ -185,11 +192,14 @@ export default function GhostCard3D({ scrollProgress }: GhostCard3DProps) {
       targetX = THREE.MathUtils.lerp(responsiveXMult, -responsiveXMult, t);
       targetY = isMobile ? THREE.MathUtils.lerp(0.6, -0.6, t) : THREE.MathUtils.lerp(-0.2, 0.1, t);
 
-      baseRotationX = THREE.MathUtils.lerp(0.45, 0.2, t);
-      baseRotationY = THREE.MathUtils.lerp(-0.75, -0.3, t);
-      baseRotationZ = THREE.MathUtils.lerp(0.2, -0.15, t);
+      const skewPulse = Math.sin(t * Math.PI) * 0.7;
+
+      baseRotationX = THREE.MathUtils.lerp(0.55, 0.25, t) - skewPulse * 0.4;
+      baseRotationY = THREE.MathUtils.lerp(-0.75, 0.65, t); // Diagonal sweep rotation
+      baseRotationZ = THREE.MathUtils.lerp(-0.3, 0.2, t) + skewPulse * 0.5;
     } else if (scrollProgress <= 4.0) {
-      // PHASE 4: Section 4 -> Section 5 (Section 4 -> Section 5 Centered)
+      // PHASE 4: Section 4 (Left) -> Section 5 (Centered)
+      // Frontal presentation roll into center spot
       const t = scrollProgress - 3.0; // 0 to 1
       const initialScale = 1.3 * mobileScaleMult;
       const targetScale = 1.45 * mobileScaleMult;
@@ -198,11 +208,12 @@ export default function GhostCard3D({ scrollProgress }: GhostCard3DProps) {
       targetX = THREE.MathUtils.lerp(-responsiveXMult, 0, t);
       targetY = isMobile ? THREE.MathUtils.lerp(-0.6, 0.7, t) : THREE.MathUtils.lerp(0, 0.4, t);
 
-      baseRotationX = THREE.MathUtils.lerp(0.2, 0.55, t);
-      baseRotationY = THREE.MathUtils.lerp(-0.3, 0.5, t);
-      baseRotationZ = THREE.MathUtils.lerp(-0.15, -0.2, t);
+      baseRotationX = THREE.MathUtils.lerp(0.25, 0.5, t);
+      baseRotationY = THREE.MathUtils.lerp(0.65, 0.15, t); // Aligns straight facing user
+      baseRotationZ = THREE.MathUtils.lerp(0.2, -0.1, t);
     } else if (scrollProgress <= 5.0) {
-      // PHASE 5: Section 5 -> Section 6 (Centered -> Section 6)
+      // PHASE 5: Section 5 (Centered) -> Section 6 (Left)
+      // Dynamic side-skew into Pricing dashboard
       const t = scrollProgress - 4.0; // 0 to 1
       const initialScale = 1.45 * mobileScaleMult;
       const targetScale = 1.25 * mobileScaleMult;
@@ -211,11 +222,13 @@ export default function GhostCard3D({ scrollProgress }: GhostCard3DProps) {
       targetX = THREE.MathUtils.lerp(0, -responsiveXMult, t);
       targetY = isMobile ? THREE.MathUtils.lerp(0.7, -0.7, t) : THREE.MathUtils.lerp(0.4, 0, t);
 
-      baseRotationX = THREE.MathUtils.lerp(0.55, 0.25, t);
-      baseRotationY = THREE.MathUtils.lerp(0.5, -0.35, t);
-      baseRotationZ = THREE.MathUtils.lerp(-0.2, -0.1, t);
+      const rollPulse = Math.sin(t * Math.PI) * 0.5;
+
+      baseRotationX = THREE.MathUtils.lerp(0.5, 0.35, t) + rollPulse * 0.25;
+      baseRotationY = THREE.MathUtils.lerp(0.15, -0.65, t);
+      baseRotationZ = THREE.MathUtils.lerp(-0.1, 0.3, t);
     } else if (scrollProgress <= 6.0) {
-      // PHASE 6: Section 6 -> Section 7
+      // PHASE 6: Section 6 (Pricing) -> Section 7 (Limits)
       const t = scrollProgress - 5.0; // 0 to 1
       const initialScale = 1.25 * mobileScaleMult;
       const targetScale = 1.35 * mobileScaleMult;
@@ -224,9 +237,9 @@ export default function GhostCard3D({ scrollProgress }: GhostCard3DProps) {
       targetX = -responsiveXMult;
       targetY = isMobile ? -0.7 : 0;
 
-      baseRotationX = THREE.MathUtils.lerp(0.25, 0.6, t);
-      baseRotationY = THREE.MathUtils.lerp(-0.35, -0.65, t);
-      baseRotationZ = THREE.MathUtils.lerp(-0.1, 0.35, t);
+      baseRotationX = THREE.MathUtils.lerp(0.35, 0.65, t);
+      baseRotationY = THREE.MathUtils.lerp(-0.65, -0.2, t);
+      baseRotationZ = THREE.MathUtils.lerp(0.3, -0.25, t);
     } else {
       // PHASE 7: Section 7 -> Section 8 (Footer Stage - Kite Exit)
       const t = scrollProgress - 6.0; // 0 to 1
@@ -237,9 +250,9 @@ export default function GhostCard3D({ scrollProgress }: GhostCard3DProps) {
       targetY = THREE.MathUtils.lerp(isMobile ? -0.7 : 0, 3.8, t);
       targetZ = THREE.MathUtils.lerp(0, -3.5, t);
 
-      baseRotationX = THREE.MathUtils.lerp(0.6, 2.5, t);
-      baseRotationY = THREE.MathUtils.lerp(-0.65, 3.0, t);
-      baseRotationZ = THREE.MathUtils.lerp(0.35, -1.8, t);
+      baseRotationX = THREE.MathUtils.lerp(0.65, 2.8, t);
+      baseRotationY = THREE.MathUtils.lerp(-0.2, 3.2, t);
+      baseRotationZ = THREE.MathUtils.lerp(-0.25, -2.0, t);
     }
 
     meshRef.current.scale.set(scale, scale, scale);
