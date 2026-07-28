@@ -134,27 +134,120 @@ export default function GhostCard3D({ scrollProgress }: GhostCard3DProps) {
 
     // Calculate dynamic responsive layout adjustments based on viewport width
     const isMobile = size.width < 768;
-    const targetScale = isMobile ? 0.95 : 1.35;
-    const initialScale = isMobile ? 0.7 : 0.95;
+    const isTablet = size.width >= 768 && size.width < 1024;
+    
+    // Scale down for smaller screens
+    const mobileScaleMult = isMobile ? 0.65 : isTablet ? 0.9 : 1.0;
+    const responsiveXMult = isMobile ? 0 : isTablet ? 1.2 : 1.85;
 
-    // Smoothly interpolate scale based on scroll
-    const scale = THREE.MathUtils.lerp(initialScale, targetScale, scrollProgress);
+    let scale = 1.0;
+    let targetX = 0;
+    let targetY = 0;
+    let targetZ = 0;
+    let baseRotationX = 0.3;
+    let baseRotationY = -0.4;
+    let baseRotationZ = -0.1;
+
+    if (scrollProgress <= 1.0) {
+      // PHASE 1: Section 1 -> Section 2 (Hero -> Section 2)
+      const t = scrollProgress; // 0 to 1
+      const initialScale = 0.95 * mobileScaleMult;
+      const targetScale = 1.35 * mobileScaleMult;
+      scale = THREE.MathUtils.lerp(initialScale, targetScale, t);
+
+      // On mobile, shift card up vertically so text displays beneath cleanly
+      targetX = THREE.MathUtils.lerp(responsiveXMult, -responsiveXMult, t);
+      targetY = isMobile ? THREE.MathUtils.lerp(0.8, -0.6, t) : 0;
+
+      baseRotationX = THREE.MathUtils.lerp(0.3, 0.15, t);
+      baseRotationY = THREE.MathUtils.lerp(-0.4, -0.15, t);
+      baseRotationZ = THREE.MathUtils.lerp(-0.1, 0, t);
+    } else if (scrollProgress <= 2.0) {
+      // PHASE 2: Section 2 -> Section 3 (Section 2 -> Section 3)
+      const t = scrollProgress - 1.0; // 0 to 1
+      const initialScale = 1.35 * mobileScaleMult;
+      const targetScale = 1.5 * mobileScaleMult;
+      scale = THREE.MathUtils.lerp(initialScale, targetScale, t);
+
+      targetX = THREE.MathUtils.lerp(-responsiveXMult, responsiveXMult, t);
+      targetY = isMobile ? THREE.MathUtils.lerp(-0.6, 0.6, t) : THREE.MathUtils.lerp(0, -0.2, t);
+
+      baseRotationX = THREE.MathUtils.lerp(0.15, 0.45, t);
+      baseRotationY = THREE.MathUtils.lerp(-0.15, -0.75, t);
+      baseRotationZ = THREE.MathUtils.lerp(0, 0.2, t);
+    } else if (scrollProgress <= 3.0) {
+      // PHASE 3: Section 3 -> Section 4 (Section 3 -> Section 4)
+      const t = scrollProgress - 2.0; // 0 to 1
+      const initialScale = 1.5 * mobileScaleMult;
+      const targetScale = 1.3 * mobileScaleMult;
+      scale = THREE.MathUtils.lerp(initialScale, targetScale, t);
+
+      targetX = THREE.MathUtils.lerp(responsiveXMult, -responsiveXMult, t);
+      targetY = isMobile ? THREE.MathUtils.lerp(0.6, -0.6, t) : THREE.MathUtils.lerp(-0.2, 0.1, t);
+
+      baseRotationX = THREE.MathUtils.lerp(0.45, 0.2, t);
+      baseRotationY = THREE.MathUtils.lerp(-0.75, -0.3, t);
+      baseRotationZ = THREE.MathUtils.lerp(0.2, -0.15, t);
+    } else if (scrollProgress <= 4.0) {
+      // PHASE 4: Section 4 -> Section 5 (Section 4 -> Section 5 Centered)
+      const t = scrollProgress - 3.0; // 0 to 1
+      const initialScale = 1.3 * mobileScaleMult;
+      const targetScale = 1.45 * mobileScaleMult;
+      scale = THREE.MathUtils.lerp(initialScale, targetScale, t);
+
+      targetX = THREE.MathUtils.lerp(-responsiveXMult, 0, t);
+      targetY = isMobile ? THREE.MathUtils.lerp(-0.6, 0.7, t) : THREE.MathUtils.lerp(0, 0.4, t);
+
+      baseRotationX = THREE.MathUtils.lerp(0.2, 0.55, t);
+      baseRotationY = THREE.MathUtils.lerp(-0.3, 0.5, t);
+      baseRotationZ = THREE.MathUtils.lerp(-0.15, -0.2, t);
+    } else if (scrollProgress <= 5.0) {
+      // PHASE 5: Section 5 -> Section 6 (Centered -> Section 6)
+      const t = scrollProgress - 4.0; // 0 to 1
+      const initialScale = 1.45 * mobileScaleMult;
+      const targetScale = 1.25 * mobileScaleMult;
+      scale = THREE.MathUtils.lerp(initialScale, targetScale, t);
+
+      targetX = THREE.MathUtils.lerp(0, -responsiveXMult, t);
+      targetY = isMobile ? THREE.MathUtils.lerp(0.7, -0.7, t) : THREE.MathUtils.lerp(0.4, 0, t);
+
+      baseRotationX = THREE.MathUtils.lerp(0.55, 0.25, t);
+      baseRotationY = THREE.MathUtils.lerp(0.5, -0.35, t);
+      baseRotationZ = THREE.MathUtils.lerp(-0.2, -0.1, t);
+    } else if (scrollProgress <= 6.0) {
+      // PHASE 6: Section 6 -> Section 7
+      const t = scrollProgress - 5.0; // 0 to 1
+      const initialScale = 1.25 * mobileScaleMult;
+      const targetScale = 1.35 * mobileScaleMult;
+      scale = THREE.MathUtils.lerp(initialScale, targetScale, t);
+
+      targetX = -responsiveXMult;
+      targetY = isMobile ? -0.7 : 0;
+
+      baseRotationX = THREE.MathUtils.lerp(0.25, 0.6, t);
+      baseRotationY = THREE.MathUtils.lerp(-0.35, -0.65, t);
+      baseRotationZ = THREE.MathUtils.lerp(-0.1, 0.35, t);
+    } else {
+      // PHASE 7: Section 7 -> Section 8 (Footer Stage - Kite Exit)
+      const t = scrollProgress - 6.0; // 0 to 1
+      const initialScale = 1.35 * mobileScaleMult;
+      scale = THREE.MathUtils.lerp(initialScale, 0.1, t);
+
+      targetX = THREE.MathUtils.lerp(-responsiveXMult, 4.5, t);
+      targetY = THREE.MathUtils.lerp(isMobile ? -0.7 : 0, 3.8, t);
+      targetZ = THREE.MathUtils.lerp(0, -3.5, t);
+
+      baseRotationX = THREE.MathUtils.lerp(0.6, 2.5, t);
+      baseRotationY = THREE.MathUtils.lerp(-0.65, 3.0, t);
+      baseRotationZ = THREE.MathUtils.lerp(0.35, -1.8, t);
+    }
+
     meshRef.current.scale.set(scale, scale, scale);
-
-    // Target positions: Starts on the right side (1.2) and shifts to the left (-1.2) on scroll
-    const targetX = isMobile ? 0 : THREE.MathUtils.lerp(1.2, -1.2, scrollProgress);
-    const targetY = isMobile ? THREE.MathUtils.lerp(0.3, 0, scrollProgress) : THREE.MathUtils.lerp(0, 0, scrollProgress);
-    const targetZ = 0;
 
     // Smooth position interpolation
     meshRef.current.position.x = THREE.MathUtils.lerp(meshRef.current.position.x, targetX, 0.1);
     meshRef.current.position.y = THREE.MathUtils.lerp(meshRef.current.position.y, targetY, 0.1);
     meshRef.current.position.z = THREE.MathUtils.lerp(meshRef.current.position.z, targetZ, 0.1);
-
-    // Target rotations: Start with a cool tilted profile (rotationY = -0.5) and end up flatter (rotationY = -0.15)
-    const baseRotationX = THREE.MathUtils.lerp(0.3, 0.15, scrollProgress);
-    const baseRotationY = THREE.MathUtils.lerp(-0.4, -0.15, scrollProgress);
-    const baseRotationZ = THREE.MathUtils.lerp(-0.1, 0, scrollProgress);
 
     // Add cursor parallax feedback
     const mouseInfluenceX = mouse.current.y * 0.18;
