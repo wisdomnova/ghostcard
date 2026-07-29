@@ -47,13 +47,12 @@ export default function Header() {
           >
             Pricing
           </a>
-          <a
-            href="#contact"
-            onClick={(e) => handleNavClick(e, "contact")}
+          <Link
+            href="/contact"
             className="text-sm font-bold text-white/80 hover:text-white transition-colors duration-200"
           >
             Contact
-          </a>
+          </Link>
         </nav>
 
         {/* Separator Line */}
@@ -96,13 +95,13 @@ export default function Header() {
             >
               Pricing
             </a>
-            <a
-              href="#contact"
-              onClick={(e) => handleNavClick(e, "contact")}
+            <Link
+              href="/contact"
+              onClick={() => setMobileMenuOpen(false)}
               className="text-base font-semibold text-white/90 hover:text-white transition-colors"
             >
               Contact
-            </a>
+            </Link>
           </nav>
           
           <div className="h-[1px] w-full bg-white/10" />
