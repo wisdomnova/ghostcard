@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { IconChevronRight, IconMenu2, IconX } from "@tabler/icons-react";
 
@@ -57,7 +58,7 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 w-full z-40 bg-gradient-to-b from-[#070709]/80 to-transparent backdrop-blur-md md:backdrop-blur-none py-4 px-5 md:py-6 md:px-24 flex items-center justify-between pointer-events-auto transition-all">
-      {/* Brand Wordmark */}
+      {/* Brand Wordmark & Logo */}
       <Link
         href="/"
         onClick={(e) => {
@@ -66,9 +67,17 @@ export default function Header() {
             window.scrollTo({ top: 0, behavior: "smooth" });
           }
         }}
-        className="text-base md:text-lg font-bold tracking-widest text-white hover:text-zinc-300 transition-colors duration-200 font-sans"
+        className="flex items-center gap-3.5 text-base md:text-xl font-bold tracking-widest text-white hover:text-zinc-300 transition-colors duration-200 font-sans group"
       >
-        GhostCard
+        <div className="relative w-12 h-12 md:w-14 md:h-14">
+          <Image
+            src="/logo.png"
+            alt="GhostCard Logo"
+            fill
+            className="object-contain"
+          />
+        </div>
+        <span>GhostCard</span>
       </Link>
 
       {/* Desktop Navigation & Actions */}
