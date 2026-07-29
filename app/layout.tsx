@@ -8,8 +8,7 @@ const bellotaText = Bellota_Text({
   variable: "--font-bellota-text",
 });
 
-// PLACEHOLDER: Replace 'https://your-domain-here.com' with your actual production URL when ready
-const DOMAIN = process.env.NEXT_PUBLIC_SITE_URL || "https://your-domain-here.com";
+const DOMAIN = process.env.NEXT_PUBLIC_SITE_URL || "https://ghostcard-dun.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(DOMAIN),
@@ -32,8 +31,22 @@ export const metadata: Metadata = {
     description: "Your Money. Your Rules. No-KYC Physical Mastercard funded with crypto.",
     url: DOMAIN,
     siteName: "GhostCard",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "GhostCard | Physical Crypto Mastercard",
+      },
+    ],
     locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "GhostCard | Physical Crypto Mastercard",
+    description: "Your Money. Your Rules. No-KYC Physical Mastercard funded with crypto.",
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
