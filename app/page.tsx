@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import CardCanvas from "./components/CardCanvas";
 import Header from "./components/Header";
-import { IconShield } from "@tabler/icons-react";
 import { ScrollRevealText } from "./components/ScrollRevealText";
 import GlobeCanvas from "./components/GlobeCanvas";
 import { createCardTexture, createCardBackTexture } from "./components/textures";
@@ -23,7 +23,7 @@ export default function Home() {
       // Warm up canvas drawing caches synchronously
       const front = createCardTexture(true);
       const back = createCardBackTexture();
-      
+
       // Mark card textures as ready
       setTimeout(() => {
         setIsCardLoaded(true);
@@ -111,7 +111,7 @@ export default function Home() {
     <div ref={containerRef} className="relative min-h-[800vh] w-full bg-[#070709] text-white overflow-x-hidden selection:bg-violet-500/30">
       {/* 3D Preloader Cover Overlay with Pure Blur Out Animation */}
       {isPreloaderActive && (
-        <div 
+        <div
           className="fixed inset-0 w-screen h-screen z-50 flex flex-col items-center justify-center bg-[#070709] transition-all duration-[1000ms] ease-out"
           style={{
             opacity: startRevealAnimation ? 0 : 1,
@@ -122,7 +122,7 @@ export default function Home() {
         >
           {/* HD Interactive Globe in loading phase - 100vw x 100vh canvas container */}
           <div className="absolute inset-0 w-full h-full z-10 flex items-center justify-center pointer-events-none">
-            <GlobeCanvas onLoaded={() => {}} />
+            <GlobeCanvas onLoaded={() => { }} />
           </div>
         </div>
       )}
@@ -182,12 +182,12 @@ export default function Home() {
             </p>
 
             {/* Reusable premium design button matching Brand Identity document */}
-            <a
-              href="#apply"
+            <Link
+              href="/contact"
               className="w-fit px-8 py-3.5 rounded-full text-sm font-bold text-[#070709] bg-gradient-to-r from-violet-300 via-slate-100 to-indigo-200 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 shadow-[0_0_30px_rgba(167,139,250,0.2)]"
             >
               GET YOUR GHOSTCARD
-            </a>
+            </Link>
           </div>
         </section>
 
