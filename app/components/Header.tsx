@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { IconChevronRight, IconMenu2, IconX } from "@tabler/icons-react";
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
   const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     if (pathname === "/contact") {
@@ -40,11 +41,14 @@ export default function Header() {
   }, [pathname]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-    if (pathname !== "/") {
-      return; // Allow standard navigation if on subpages
-    }
     e.preventDefault();
     setMobileMenuOpen(false);
+
+    if (pathname !== "/") {
+      router.push(`/#${id}`);
+      return;
+    }
+
     const targetElement = document.getElementById(id);
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: "smooth" });
@@ -103,18 +107,6 @@ export default function Header() {
             Contact
           </Link>
         </nav>
-
-        {/* Separator Line */}
-        <div className="h-4 w-[1px] bg-white/20" />
-
-        {/* Action Button */}
-        <Link
-          href="#apply"
-          className="text-sm font-bold text-white hover:text-zinc-200 transition-all duration-200 flex items-center gap-1 group"
-        >
-          How to apply
-          <IconChevronRight className="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform" stroke={3.0} />
-        </Link>
       </div>
 
       {/* Mobile Hamburger Button */}
@@ -164,16 +156,6 @@ export default function Header() {
               Contact
             </Link>
           </nav>
-          
-          <div className="h-[1px] w-full bg-white/10" />
-
-          <Link
-            href="#apply"
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-full text-center py-3 rounded-full text-sm font-bold text-[#070709] bg-gradient-to-r from-violet-300 via-slate-100 to-indigo-200 shadow-md"
-          >
-            How to apply
-          </Link>
         </div>
       )}
     </header>

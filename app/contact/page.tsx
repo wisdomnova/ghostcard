@@ -51,13 +51,13 @@ export default function ContactPage() {
           
           <div className="flex flex-col items-center gap-3">
             <span className="text-zinc-500 text-xs md:text-sm font-semibold tracking-widest uppercase">
-              Get in Touch
+              Card Order & Inquiries
             </span>
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white font-sans">
-              Contact Support
+              Apply for GhostCard
             </h1>
             <p className="text-zinc-400 text-sm md:text-base max-w-lg leading-relaxed font-medium">
-              Scan a QR code or click the direct link below to connect with our official support team.
+              Scan a QR code or click a direct link below to start your GhostCard application with our team.
             </p>
           </div>
 
