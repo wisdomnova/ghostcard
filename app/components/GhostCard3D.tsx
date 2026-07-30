@@ -166,8 +166,8 @@ export default function GhostCard3D({ scrollProgress }: GhostCard3DProps) {
       baseRotationY = THREE.MathUtils.lerp(-0.4, -0.15 + Math.PI, t); // Flip to reveal back/profile details
       baseRotationZ = THREE.MathUtils.lerp(-0.1, 0.25, t) + spinPulse * 0.35;
     } else if (scrollProgress <= 2.0) {
-      // PHASE 2: Section 2 (Left) -> Section 3 (Right)
-      // Sweeping 360-degree reverse spin with dynamic pitch tilt
+      // PHASE 2: Section 2 (Pricing, Left) -> Section 3 (Limits, Right)
+      // Sweeping 360-degree reverse spin animating card to the right side
       const t = scrollProgress - 1.0; // 0 to 1
       const initialScale = 1.35 * mobileScaleMult;
       const targetScale = 1.5 * mobileScaleMult;
@@ -182,8 +182,7 @@ export default function GhostCard3D({ scrollProgress }: GhostCard3DProps) {
       baseRotationY = THREE.MathUtils.lerp(-0.15 + Math.PI, -0.75, t); // Unflips back to front face
       baseRotationZ = THREE.MathUtils.lerp(0.25, -0.3, t);
     } else if (scrollProgress <= 3.0) {
-      // PHASE 3: Section 3 (Right) -> Section 4 (Left)
-      // Sleek isometric tilt skew with coin-spin momentum
+      // PHASE 3: Section 3 (Limits, Right) -> Section 4 (Physical Card, Left)
       const t = scrollProgress - 2.0; // 0 to 1
       const initialScale = 1.5 * mobileScaleMult;
       const targetScale = 1.3 * mobileScaleMult;
@@ -198,35 +197,36 @@ export default function GhostCard3D({ scrollProgress }: GhostCard3DProps) {
       baseRotationY = THREE.MathUtils.lerp(-0.75, 0.65, t); // Diagonal sweep rotation
       baseRotationZ = THREE.MathUtils.lerp(-0.3, 0.2, t) + skewPulse * 0.5;
     } else if (scrollProgress <= 4.0) {
-      // PHASE 4: Section 4 (Left) -> Section 5 (Centered)
-      // Frontal presentation roll into center spot
+      // PHASE 4: Section 4 (Physical Card, Left) -> Section 5 (No-KYC, Far Right)
+      // Dynamic sweep animating card over to the far right side
       const t = scrollProgress - 3.0; // 0 to 1
       const initialScale = 1.3 * mobileScaleMult;
       const targetScale = 1.45 * mobileScaleMult;
       scale = THREE.MathUtils.lerp(initialScale, targetScale, t);
 
-      targetX = THREE.MathUtils.lerp(-responsiveXMult, 0, t);
-      targetY = isMobile ? THREE.MathUtils.lerp(-0.6, 0.7, t) : THREE.MathUtils.lerp(0, 0.4, t);
+      targetX = THREE.MathUtils.lerp(-responsiveXMult, responsiveXMult, t);
+      targetY = isMobile ? THREE.MathUtils.lerp(-0.6, 0.6, t) : THREE.MathUtils.lerp(0.1, -0.2, t);
 
-      baseRotationX = THREE.MathUtils.lerp(0.25, 0.5, t);
-      baseRotationY = THREE.MathUtils.lerp(0.65, 0.15, t); // Aligns straight facing user
-      baseRotationZ = THREE.MathUtils.lerp(0.2, -0.1, t);
+      const tiltPulse = Math.sin(t * Math.PI) * 0.6;
+
+      baseRotationX = THREE.MathUtils.lerp(0.25, 0.5, t) + tiltPulse * 0.25;
+      baseRotationY = THREE.MathUtils.lerp(0.65, -0.65, t); // Rotates into position
+      baseRotationZ = THREE.MathUtils.lerp(0.2, -0.25, t);
     } else if (scrollProgress <= 5.0) {
-      // PHASE 5: Section 5 (Centered) -> Section 6 (Left)
-      // Dynamic side-skew into Pricing dashboard
+      // PHASE 5: Section 5 (No-KYC, Far Right) -> Section 6 (Worldwide Usability, Left)
       const t = scrollProgress - 4.0; // 0 to 1
       const initialScale = 1.45 * mobileScaleMult;
-      const targetScale = 1.25 * mobileScaleMult;
+      const targetScale = 1.3 * mobileScaleMult;
       scale = THREE.MathUtils.lerp(initialScale, targetScale, t);
 
-      targetX = THREE.MathUtils.lerp(0, -responsiveXMult, t);
-      targetY = isMobile ? THREE.MathUtils.lerp(0.7, -0.7, t) : THREE.MathUtils.lerp(0.4, 0, t);
+      targetX = THREE.MathUtils.lerp(responsiveXMult, -responsiveXMult, t);
+      targetY = isMobile ? THREE.MathUtils.lerp(0.6, -0.6, t) : THREE.MathUtils.lerp(-0.2, 0.1, t);
 
       const rollPulse = Math.sin(t * Math.PI) * 0.5;
 
       baseRotationX = THREE.MathUtils.lerp(0.5, 0.35, t) + rollPulse * 0.25;
-      baseRotationY = THREE.MathUtils.lerp(0.15, -0.65, t);
-      baseRotationZ = THREE.MathUtils.lerp(-0.1, 0.3, t);
+      baseRotationY = THREE.MathUtils.lerp(-0.65, 0.65, t);
+      baseRotationZ = THREE.MathUtils.lerp(-0.25, 0.3, t);
     } else if (scrollProgress <= 6.0) {
       // PHASE 6: Section 6 (Pricing) -> Section 7 (Limits)
       const t = scrollProgress - 5.0; // 0 to 1

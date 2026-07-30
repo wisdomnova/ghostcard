@@ -84,17 +84,6 @@ export default function Header() {
       <div className="hidden md:flex items-center gap-8">
         <nav className="flex items-center gap-2 bg-white/5 border border-white/10 p-1.5 rounded-full backdrop-blur-lg">
           <a
-            href="/#features"
-            onClick={(e) => handleNavClick(e, "features")}
-            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 relative ${
-              activeSection === "features"
-                ? "text-white bg-gradient-to-r from-violet-600/80 to-indigo-600/80 shadow-[0_0_20px_rgba(167,139,250,0.4)] border border-violet-400/30"
-                : "text-white/70 hover:text-white"
-            }`}
-          >
-            Features
-          </a>
-          <a
             href="/#pricing"
             onClick={(e) => handleNavClick(e, "pricing")}
             className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 relative ${
@@ -104,6 +93,17 @@ export default function Header() {
             }`}
           >
             Pricing
+          </a>
+          <a
+            href="/#features"
+            onClick={(e) => handleNavClick(e, "features")}
+            className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all duration-300 relative ${
+              activeSection === "features"
+                ? "text-white bg-gradient-to-r from-violet-600/80 to-indigo-600/80 shadow-[0_0_20px_rgba(167,139,250,0.4)] border border-violet-400/30"
+                : "text-white/70 hover:text-white"
+            }`}
+          >
+            Features
           </a>
           <Link
             href="/contact"
@@ -132,17 +132,6 @@ export default function Header() {
         <div className="absolute top-full left-0 w-full bg-[#070709]/95 backdrop-blur-xl border-b border-white/10 py-6 px-6 flex flex-col gap-5 md:hidden shadow-2xl animate-in fade-in slide-in-from-top-4 duration-200">
           <nav className="flex flex-col gap-2 text-left">
             <a
-              href="/#features"
-              onClick={(e) => handleNavClick(e, "features")}
-              className={`text-base font-semibold py-2 px-4 rounded-xl transition-all ${
-                activeSection === "features"
-                  ? "text-white bg-gradient-to-r from-violet-600/80 to-indigo-600/80 border border-violet-400/30 font-bold"
-                  : "text-white/80 hover:text-white"
-              }`}
-            >
-              Features
-            </a>
-            <a
               href="/#pricing"
               onClick={(e) => handleNavClick(e, "pricing")}
               className={`text-base font-semibold py-2 px-4 rounded-xl transition-all ${
@@ -152,6 +141,17 @@ export default function Header() {
               }`}
             >
               Pricing
+            </a>
+            <a
+              href="/#features"
+              onClick={(e) => handleNavClick(e, "features")}
+              className={`text-base font-semibold py-2 px-4 rounded-xl transition-all ${
+                activeSection === "features"
+                  ? "text-white bg-gradient-to-r from-violet-600/80 to-indigo-600/80 border border-violet-400/30 font-bold"
+                  : "text-white/80 hover:text-white"
+              }`}
+            >
+              Features
             </a>
             <Link
               href="/contact"

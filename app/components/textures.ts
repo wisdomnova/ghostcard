@@ -38,7 +38,7 @@ export function createCardTexture(isDark: boolean = true): THREE.CanvasTexture {
 
   // Draw Chip (Glassmorphism & Gold/Silver plating details)
   const chipX = 120;
-  const chipY = 220;
+  const chipY = 160;
   const chipW = 120;
   const chipH = 96;
   const chipRadius = 12;
@@ -68,10 +68,22 @@ export function createCardTexture(isDark: boolean = true): THREE.CanvasTexture {
   ctx.roundRect(chipX + chipW * 0.35, chipY + chipH * 0.25, chipW * 0.3, chipH * 0.5, 4);
   ctx.stroke();
 
-  // Draw Mastercard Logo (Obsidian & Liquid Chrome version rather than red/yellow)
-  const logoX = 840;
-  const logoY = 480;
-  const logoR = 48;
+  // Contactless Symbol (Aligned next to chip)
+  const signalX = 275;
+  const signalY = 208;
+  ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+  ctx.lineWidth = 3;
+  ctx.lineCap = "round";
+  for (let i = 0; i < 4; i++) {
+    ctx.beginPath();
+    ctx.arc(signalX, signalY, 14 + i * 9, -Math.PI / 4, Math.PI / 4);
+    ctx.stroke();
+  }
+
+  // Draw Mastercard Logo (Bottom Right)
+  const logoX = 850;
+  const logoY = 490;
+  const logoR = 46;
 
   ctx.globalAlpha = 0.85;
   
@@ -91,43 +103,35 @@ export function createCardTexture(isDark: boolean = true): THREE.CanvasTexture {
 
   // Mastercard Text
   ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-  ctx.font = '18px "Bellota Text", sans-serif';
+  ctx.font = '16px "Bellota Text", sans-serif';
   ctx.textAlign = "center";
-  ctx.fillText("mastercard", logoX, logoY + logoR + 25);
+  ctx.fillText("mastercard", logoX, logoY + logoR + 22);
 
-  // Add Cardholder Details & Branding
-  ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
-  ctx.font = 'bold 36px "Bellota Text", sans-serif';
+  // Add Card Details - Balanced Vertical Lineup
   ctx.textAlign = "left";
-  ctx.fillText("GHOSTCARD", 120, 120);
 
-  ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
+  // Card Number (Centered vertically in middle band)
+  ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
   ctx.font = '28px monospace';
-  ctx.fillText("•••• •••• •••• 8888", 120, 420);
+  ctx.fillText("•••• •••• •••• 8888", 120, 360);
 
+  // Cardholder Label & Value
   ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
-  ctx.font = '14px "Bellota Text", sans-serif';
-  ctx.fillText("CARDHOLDER", 120, 480);
-  ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
-  ctx.font = '18px "Bellota Text", sans-serif';
-  ctx.fillText("PRIVACY FIRST", 120, 510);
+  ctx.font = '12px "Bellota Text", sans-serif';
+  ctx.fillText("CARDHOLDER", 120, 470);
 
+  ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+  ctx.font = 'bold 16px "Bellota Text", sans-serif';
+  ctx.fillText("PRIVACY FIRST", 120, 498);
+
+  // Expiry Date Label & Value
   ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
-  ctx.fillText("VALID THRU", 420, 480);
-  ctx.fillStyle = "rgba(255, 255, 255, 0.85)";
-  ctx.fillText("12/29", 420, 510);
+  ctx.font = '12px "Bellota Text", sans-serif';
+  ctx.fillText("VALID THRU", 380, 470);
 
-  // Contactless Symbol
-  const signalX = 280;
-  const signalY = 240;
-  ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
-  ctx.lineWidth = 3;
-  ctx.lineCap = "round";
-  for (let i = 0; i < 4; i++) {
-    ctx.beginPath();
-    ctx.arc(signalX, signalY + 25, 15 + i * 10, -Math.PI / 4, Math.PI / 4);
-    ctx.stroke();
-  }
+  ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+  ctx.font = 'bold 16px "Bellota Text", sans-serif';
+  ctx.fillText("12/29", 380, 498);
 
   // Create texture from canvas
   const texture = new THREE.CanvasTexture(canvas);

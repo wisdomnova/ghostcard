@@ -64,54 +64,7 @@ export default function ContactPage() {
           {/* 3D Interactive Contact Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl perspective-1000">
             
-            {/* Card 1: SimpleX Chat */}
-            <div
-              onMouseMove={(e) => handleMouseMove(e, setSimplexRotate)}
-              onMouseLeave={() => handleMouseLeave(setSimplexRotate)}
-              style={{
-                transform: `rotateX(${simplexRotate.x}deg) rotateY(${simplexRotate.y}deg)`,
-                transformStyle: "preserve-3d",
-              }}
-              className="relative bg-zinc-900/60 backdrop-blur-xl border border-white/10 rounded-3xl p-8 flex flex-col items-center gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-transform duration-200 ease-out group"
-            >
-              <div className="flex items-center gap-2.5">
-                <IconMessageCircle2 className="w-5 h-5 text-violet-400" />
-                <h3 className="text-xl font-bold text-white font-sans">SimpleX Chat</h3>
-              </div>
-
-              {/* Styled 3D QR Container */}
-              <div 
-                className="relative bg-[#0d0d12] p-4 rounded-2xl border border-violet-500/30 shadow-[0_0_30px_rgba(167,139,250,0.15)] group-hover:shadow-[0_0_40px_rgba(167,139,250,0.3)] transition-shadow duration-300"
-                style={{ transform: "translateZ(30px)" }}
-              >
-                <QRCodeSVG
-                  value={simplexUrl}
-                  size={160}
-                  bgColor="#0d0d12"
-                  fgColor="#ffffff"
-                  level="H"
-                  marginSize={1}
-                />
-              </div>
-
-              <p className="text-xs text-zinc-400 font-medium">
-                Encrypted & Metadata-free support chat
-              </p>
-
-              {/* Direct Hyperlink */}
-              <a
-                href={simplexUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full py-3 px-4 rounded-xl bg-violet-600/20 hover:bg-violet-600/30 border border-violet-500/40 text-violet-200 font-semibold text-xs flex items-center justify-center gap-2 transition-all duration-200"
-                style={{ transform: "translateZ(20px)" }}
-              >
-                <span>Open SimpleX Chat</span>
-                <IconExternalLink className="w-4 h-4" />
-              </a>
-            </div>
-
-            {/* Card 2: Telegram */}
+            {/* Card 1: Telegram */}
             <div
               onMouseMove={(e) => handleMouseMove(e, setTelegramRotate)}
               onMouseLeave={() => handleMouseLeave(setTelegramRotate)}
@@ -154,6 +107,53 @@ export default function ContactPage() {
                 style={{ transform: "translateZ(20px)" }}
               >
                 <span>@ghostcard_official</span>
+                <IconExternalLink className="w-4 h-4" />
+              </a>
+            </div>
+
+            {/* Card 2: SimpleX Chat */}
+            <div
+              onMouseMove={(e) => handleMouseMove(e, setSimplexRotate)}
+              onMouseLeave={() => handleMouseLeave(setSimplexRotate)}
+              style={{
+                transform: `rotateX(${simplexRotate.x}deg) rotateY(${simplexRotate.y}deg)`,
+                transformStyle: "preserve-3d",
+              }}
+              className="relative bg-zinc-900/60 backdrop-blur-xl border border-white/10 rounded-3xl p-8 flex flex-col items-center gap-6 shadow-[0_20px_50px_rgba(0,0,0,0.5)] transition-transform duration-200 ease-out group"
+            >
+              <div className="flex items-center gap-2.5">
+                <IconMessageCircle2 className="w-5 h-5 text-violet-400" />
+                <h3 className="text-xl font-bold text-white font-sans">SimpleX Chat</h3>
+              </div>
+
+              {/* Styled 3D QR Container */}
+              <div 
+                className="relative bg-[#0d0d12] p-4 rounded-2xl border border-violet-500/30 shadow-[0_0_30px_rgba(167,139,250,0.15)] group-hover:shadow-[0_0_40px_rgba(167,139,250,0.3)] transition-shadow duration-300"
+                style={{ transform: "translateZ(30px)" }}
+              >
+                <QRCodeSVG
+                  value={simplexUrl}
+                  size={160}
+                  bgColor="#0d0d12"
+                  fgColor="#ffffff"
+                  level="H"
+                  marginSize={1}
+                />
+              </div>
+
+              <p className="text-xs text-zinc-400 font-medium">
+                Encrypted & Metadata-free support chat
+              </p>
+
+              {/* Direct Hyperlink */}
+              <a
+                href={simplexUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-3 px-4 rounded-xl bg-violet-600/20 hover:bg-violet-600/30 border border-violet-500/40 text-violet-200 font-semibold text-xs flex items-center justify-center gap-2 transition-all duration-200"
+                style={{ transform: "translateZ(20px)" }}
+              >
+                <span>Open SimpleX Chat</span>
                 <IconExternalLink className="w-4 h-4" />
               </a>
             </div>

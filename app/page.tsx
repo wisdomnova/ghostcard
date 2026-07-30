@@ -84,7 +84,7 @@ export default function Home() {
 
     const updateScroll = (e?: any) => {
       const scrolled = e?.scroll ?? window.scrollY;
-      const totalHeight = window.innerHeight;
+      const totalHeight = window.innerHeight * 0.75;
       const progress = Math.min(Math.max(scrolled / totalHeight, 0), 7);
       setScrollProgress(progress);
     };
@@ -108,7 +108,7 @@ export default function Home() {
   }, [isPreloaderActive]);
 
   return (
-    <div ref={containerRef} className="relative min-h-[800vh] w-full bg-[#070709] text-white overflow-x-hidden selection:bg-violet-500/30">
+    <div ref={containerRef} className="relative min-h-[625vh] w-full bg-[#070709] text-white overflow-x-hidden selection:bg-violet-500/30">
       {/* 3D Preloader Cover Overlay with Pure Blur Out Animation */}
       {isPreloaderActive && (
         <div
@@ -191,124 +191,8 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Section 2: Scrolled view (Features anchor) */}
-        <section id="features" className="h-screen w-full flex items-center justify-end px-8 md:px-24 pointer-events-none">
-          <div className="max-w-md w-full text-left pointer-events-auto flex flex-col gap-2 relative">
-
-            {/* Aesthetic pointers/floating items similar to the screenshot design */}
-            {/* Green pointer 'Chris' style */}
-            <div className="absolute -top-16 -left-12 flex items-center gap-1.5 opacity-90 scale-90">
-              <svg className="w-4 h-4 text-emerald-400 transform -rotate-45 fill-current" viewBox="0 0 24 24">
-                <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
-              </svg>
-              <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full text-xs font-bold font-sans">
-                Discreet
-              </span>
-            </div>
-
-            {/* Blue pointer 'Marc' style */}
-            <div className="absolute -bottom-16 right-16 flex items-center gap-1.5 opacity-90 scale-90">
-              <svg className="w-4 h-4 text-indigo-400 transform rotate-45 fill-current" viewBox="0 0 24 24">
-                <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
-              </svg>
-              <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-xs font-bold font-sans">
-                Global Drop
-              </span>
-            </div>
-
-            <span className="text-zinc-500 text-sm font-semibold tracking-wider">
-              Physical Card
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-              <ScrollRevealText
-                text="Real plastic NFC card shipped discreetly to your preferred drop or postbox."
-                sectionIndex={1}
-                scrollProgress={scrollProgress}
-              />
-            </h2>
-          </div>
-        </section>
-
-        {/* Section 3: Third scroll stage (Card shifts back to the right, showing No-KYC layout details) */}
-        <section className="h-screen w-full flex items-center justify-start px-8 md:px-24 pointer-events-none">
-          <div className="max-w-md w-full text-left pointer-events-auto flex flex-col gap-2 relative">
-            {/* Pink pointer 'Alicia' style */}
-            <div className="absolute -top-16 right-8 flex items-center gap-1.5 opacity-90 scale-90">
-              <svg className="w-4 h-4 text-rose-400 transform rotate-90 fill-current" viewBox="0 0 24 24">
-                <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
-              </svg>
-              <span className="bg-rose-500/20 text-rose-300 border border-rose-500/30 px-3 py-1 rounded-full text-xs font-bold font-sans">
-                Anonymous
-              </span>
-            </div>
-
-            <span className="text-zinc-500 text-sm font-semibold tracking-wider">
-              No-KYC
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-              <ScrollRevealText
-                text="No ID, passport, or personal information required."
-                sectionIndex={2}
-                scrollProgress={scrollProgress}
-              />
-            </h2>
-          </div>
-        </section>
-
-        {/* Section 4: Fourth scroll stage (Card shifts left, text moves to the right showing Worldwide usability details) */}
-        <section className="h-screen w-full flex items-center justify-end px-8 md:px-24 pointer-events-none">
-          <div className="max-w-md w-full text-left pointer-events-auto flex flex-col gap-2 relative">
-            {/* Green pointer 'Chris' style */}
-            <div className="absolute -top-16 -left-8 flex items-center gap-1.5 opacity-90 scale-90">
-              <svg className="w-4 h-4 text-emerald-400 transform -rotate-12 fill-current" viewBox="0 0 24 24">
-                <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
-              </svg>
-              <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full text-xs font-bold font-sans">
-                Worldwide
-              </span>
-            </div>
-
-            <span className="text-zinc-500 text-sm font-semibold tracking-wider">
-              Usability
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
-              <ScrollRevealText
-                text="Works at any physical store, online merchant, or ATM that accepts Mastercard."
-                sectionIndex={3}
-                scrollProgress={scrollProgress}
-              />
-            </h2>
-          </div>
-        </section>
-
-        {/* Section 5: Fifth scroll stage (Card is centered in screen, text centered above/below it representing crypto-backing) */}
-        <section className="h-screen w-full flex flex-col items-center justify-end pb-32 px-8 pointer-events-none">
-          <div className="max-w-xl text-center pointer-events-auto flex flex-col items-center gap-3 relative">
-            {/* Blue pointer 'Marc' style */}
-            <div className="absolute -top-12 flex items-center gap-1.5 opacity-95">
-              <svg className="w-4 h-4 text-indigo-400 transform -rotate-90 fill-current" viewBox="0 0 24 24">
-                <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
-              </svg>
-              <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3.5 py-1 rounded-full text-xs font-bold font-sans">
-                Instant Top-up
-              </span>
-            </div>
-
-            <span className="text-zinc-500 text-sm font-semibold tracking-wider">
-              Crypto-Backed
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight max-w-lg">
-              <ScrollRevealText
-                text="Instantly top-up using BTC, ETH, SOL, USDT or other cryptos."
-                sectionIndex={4}
-                scrollProgress={scrollProgress}
-              />
-            </h2>
-          </div>
-        </section>
-
-        {/* Section 6: Sixth scroll stage (Pricing anchor) */}
-        <section id="pricing" className="h-screen w-full flex items-center justify-end px-8 md:px-24 pointer-events-none">
+        {/* Section 2: Pricing & Trust (First section after Hero) */}
+        <section id="pricing" className="h-[75vh] w-full flex items-center justify-end px-8 md:px-24 pointer-events-none">
           <div className="max-w-2xl w-full text-left pointer-events-auto flex flex-col md:flex-row items-center gap-12">
 
             {/* Left side column: layout title & short info */}
@@ -319,16 +203,16 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
                 <ScrollRevealText
                   text="Transparent Conditions"
-                  sectionIndex={5}
+                  sectionIndex={1}
                   scrollProgress={scrollProgress}
                 />
               </h2>
               <p className="text-zinc-500 text-sm leading-relaxed max-w-sm mt-2 font-medium">
-                Secure transaction options built entirely around user protection and escrow support.
+                Simple, transparent pricing structure with zero hidden fees.
               </p>
             </div>
 
-            {/* Right side column: Pill dashboard lists matching screenshot format */}
+            {/* Right side column: Pill dashboard lists */}
             <div className="flex-1 flex flex-col gap-4 w-full">
               {/* Pill 1: Activation */}
               <div className="bg-gradient-to-r from-blue-600 to-cyan-500 px-8 py-5 rounded-full shadow-lg">
@@ -341,19 +225,13 @@ export default function Home() {
                 <h3 className="text-2xl font-bold text-white font-sans">6% Flat</h3>
                 <p className="text-white/80 text-xs font-semibold">Top-up Fee (No hidden fees)</p>
               </div>
-
-              {/* Pill 3: Escrow */}
-              <div className="bg-gradient-to-r from-purple-600 to-indigo-500 px-8 py-5 rounded-full shadow-lg">
-                <h3 className="text-lg font-bold text-white leading-tight">Dread Escrow</h3>
-                <p className="text-white/80 text-xs font-semibold">Fair Trade Escrow Preferred</p>
-              </div>
             </div>
 
           </div>
         </section>
 
-        {/* Section 7: Seventh scroll stage (Card limits & restrictions, card on the left, pill list on the right) */}
-        <section className="h-screen w-full flex items-center justify-end px-8 md:px-24 pointer-events-none">
+        {/* Section 3: Card Limits (Directly below Pricing, text on left side, card on right side) */}
+        <section className="h-[75vh] w-full flex items-center justify-start px-8 md:px-24 pointer-events-none">
           <div className="max-w-2xl w-full text-left pointer-events-auto flex flex-col md:flex-row items-center gap-12">
 
             {/* Left side column: layout title & short info */}
@@ -364,7 +242,7 @@ export default function Home() {
               <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
                 <ScrollRevealText
                   text="High Capacity Spending"
-                  sectionIndex={6}
+                  sectionIndex={2}
                   scrollProgress={scrollProgress}
                 />
               </h2>
@@ -394,6 +272,117 @@ export default function Home() {
               </div>
             </div>
 
+          </div>
+        </section>
+
+        {/* Section 4: Features Anchor - Physical Card */}
+        <section id="features" className="h-[75vh] w-full flex items-center justify-end px-8 md:px-24 pointer-events-none">
+          <div className="max-w-md w-full text-left pointer-events-auto flex flex-col gap-2 relative">
+
+            {/* Aesthetic pointers */}
+            <div className="absolute -top-16 -left-12 flex items-center gap-1.5 opacity-90 scale-90">
+              <svg className="w-4 h-4 text-emerald-400 transform -rotate-45 fill-current" viewBox="0 0 24 24">
+                <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
+              </svg>
+              <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full text-xs font-bold font-sans">
+                Discreet
+              </span>
+            </div>
+
+            <div className="absolute -bottom-16 right-16 flex items-center gap-1.5 opacity-90 scale-90">
+              <svg className="w-4 h-4 text-indigo-400 transform rotate-45 fill-current" viewBox="0 0 24 24">
+                <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
+              </svg>
+              <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3 py-1 rounded-full text-xs font-bold font-sans">
+                Global Drop
+              </span>
+            </div>
+
+            <span className="text-zinc-500 text-sm font-semibold tracking-wider">
+              Physical Card
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+              <ScrollRevealText
+                text="Real plastic NFC card shipped discreetly to your preferred drop or postbox."
+                sectionIndex={3}
+                scrollProgress={scrollProgress}
+              />
+            </h2>
+          </div>
+        </section>
+
+        {/* Section 5: No-KYC Feature */}
+        <section className="h-[75vh] w-full flex items-center justify-start px-8 md:px-24 pointer-events-none">
+          <div className="max-w-md w-full text-left pointer-events-auto flex flex-col gap-2 relative">
+            <div className="absolute -top-16 right-8 flex items-center gap-1.5 opacity-90 scale-90">
+              <svg className="w-4 h-4 text-rose-400 transform rotate-90 fill-current" viewBox="0 0 24 24">
+                <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
+              </svg>
+              <span className="bg-rose-500/20 text-rose-300 border border-rose-500/30 px-3 py-1 rounded-full text-xs font-bold font-sans">
+                Anonymous
+              </span>
+            </div>
+
+            <span className="text-zinc-500 text-sm font-semibold tracking-wider">
+              No-KYC
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+              <ScrollRevealText
+                text="No ID, passport, or personal information required."
+                sectionIndex={4}
+                scrollProgress={scrollProgress}
+              />
+            </h2>
+          </div>
+        </section>
+
+        {/* Section 6: Worldwide Usability */}
+        <section className="h-[75vh] w-full flex items-center justify-end px-8 md:px-24 pointer-events-none">
+          <div className="max-w-md w-full text-left pointer-events-auto flex flex-col gap-2 relative">
+            <div className="absolute -top-16 -left-8 flex items-center gap-1.5 opacity-90 scale-90">
+              <svg className="w-4 h-4 text-emerald-400 transform -rotate-12 fill-current" viewBox="0 0 24 24">
+                <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
+              </svg>
+              <span className="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded-full text-xs font-bold font-sans">
+                Worldwide
+              </span>
+            </div>
+
+            <span className="text-zinc-500 text-sm font-semibold tracking-wider">
+              Usability
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight">
+              <ScrollRevealText
+                text="Works at any physical store, online merchant, or ATM that accepts Mastercard."
+                sectionIndex={5}
+                scrollProgress={scrollProgress}
+              />
+            </h2>
+          </div>
+        </section>
+
+        {/* Section 7: Crypto-Backed */}
+        <section className="h-[75vh] w-full flex flex-col items-center justify-end pb-32 px-8 pointer-events-none">
+          <div className="max-w-xl text-center pointer-events-auto flex flex-col items-center gap-3 relative">
+            <div className="absolute -top-12 flex items-center gap-1.5 opacity-95">
+              <svg className="w-4 h-4 text-indigo-400 transform -rotate-90 fill-current" viewBox="0 0 24 24">
+                <path d="M2 21l21-9L2 3v7l15 2-15 2z" />
+              </svg>
+              <span className="bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 px-3.5 py-1 rounded-full text-xs font-bold font-sans">
+                Instant Top-up
+              </span>
+            </div>
+
+            <span className="text-zinc-500 text-sm font-semibold tracking-wider">
+              Crypto-Backed
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight max-w-lg">
+              <ScrollRevealText
+                text="Instantly top-up using BTC, ETH, SOL, USDT or other cryptos."
+                sectionIndex={6}
+                scrollProgress={scrollProgress}
+              />
+            </h2>
           </div>
         </section>
 
