@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  ghostcard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ghostcard-app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+      - NEXT_PUBLIC_SITE_URL=https://ghostcard-dun.vercel.app
