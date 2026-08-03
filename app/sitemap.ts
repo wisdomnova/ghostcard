@@ -2,7 +2,7 @@ import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // PLACEHOLDER: Replace 'https://your-domain-here.com' with your production URL or configure NEXT_PUBLIC_SITE_URL in .env
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ghostcard-dun.vercel.app/";
+  const baseUrl = "https://www.ghostcard.cc/";
 
   return [
     {

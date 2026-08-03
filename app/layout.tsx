@@ -8,7 +8,7 @@ const bellotaText = Bellota_Text({
   variable: "--font-bellota-text",
 });
 
-const DOMAIN = process.env.NEXT_PUBLIC_SITE_URL || "https://ghostcard-dun.vercel.app";
+const DOMAIN = "https://www.ghostcard.cc";
 
 export const metadata: Metadata = {
   metadataBase: new URL(DOMAIN),
